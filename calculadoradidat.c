@@ -6,15 +6,16 @@ void parabase2(int numero);
 void parabase8(int numero);
 void parabase16(int numero);
 void paracodeBCD(int numero);
+void complementoa2(int numero);
 
 int main(){
     int opcao1, opcao2;
-    int valor;
 
-    printf("\nCalculadora Didatica de Conversao\n\n=================================\n\nOpcoes:\n\n(1) - De base 10 para:\n\n(2) - De base 10 para base com sinal e 16 bits, (complemento a 2)\n\n(3) - Converter real em decimal para float e double\n\nSua escolha: ");
+    printf("\nCalculadora Didatica de Conversao\n\n=================================\n\nOpcoes:\n\n(1) - De base 10 para:\n\n(2) - De base 10 para base 2 com sinal e 16 bits, (complemento a 2)\n\n(3) - Converter real em decimal para float e double\n\nSua escolha: ");
     scanf("%d", &opcao2);
 
     if(opcao2 == 1){
+        int valor;
         printf("\nCalculadora Didatica de Conversao\n\n=================================\n\nOpcoes:\n\n(1) - De base 10 para base 2\n\n(2) - De base 10 para base 8\n\n(3) - De base 10 para base 16\n\n(4) - De base 10 para codigo BCD\n\nSua escolha: ");
         scanf("%d", &opcao1);
 
@@ -40,7 +41,12 @@ int main(){
             paracodeBCD(valor);
         }
     }else if(opcao2 == 2){
-        
+        int valor;
+        printf("\nDigite o valor que voce deseja transformar para base 2 com sinal com 16 bits: ");
+        scanf("%d", &valor);
+        printf("Resultado de %d em Complemento a 2: ", valor);
+        complementoa2(valor);
+
     }
 
     return 0;
@@ -140,4 +146,32 @@ void paracodeBCD(int numero){
         free(temp2[p]);
         p--;
     }
+}
+
+void complementoa2(int numero){
+    char comp[16];
+    int i = 0, guarda;
+    while(numero > 0){
+        comp[i] = numero%2;
+        numero = numero/2;
+        i++;
+    }while(i < 16){
+        comp[i] = 0;
+        i++;
+    }for(int j = i-1; j >= 0; j--){
+        if(comp[j] == 1){
+            guarda = j;
+        }
+    }
+    for(int k = i-1; k > guarda; k--){
+        if(comp[k] == 1){
+            comp[k] = 0;
+        }else{
+            comp[k] = 1;
+        }
+    }
+    for(int p = i-1; p >= 0; p--){
+        printf("%d", comp[p]);
+    }
+
 }
